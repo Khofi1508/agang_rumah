@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'partials/site_icon_styles.html' %}
 
     <style>
         :root {
@@ -394,6 +395,7 @@
     </style>
 </head>
 <body>
+    {% include 'partials/site_icon_sprite.html' %}
 
     <!-- NAVBAR -->
     <header class="navbar">
@@ -432,8 +434,8 @@
                 <div class="title-box">
                     <h1>{{ prop.nama_properti }}</h1>
                     <div class="loc-code">
-                        <span>📍 {{ prop.lokasi_detail }}</span>
-                        <span>🏷️ Kode Properti: <strong>{{ prop.kode_properti }}</strong></span>
+                        <span><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> {{ prop.lokasi_detail }}</span>
+                        <span><svg class="ap-icon" aria-hidden="true"><use href="#ap-tag"/></svg> Kode Properti: <strong>{{ prop.kode_properti }}</strong></span>
                     </div>
                 </div>
 
@@ -448,8 +450,8 @@
                     <div class="price-cicilan-sub">{{ prop.estimasi_cicilan }}</div>
                     <div class="action-buttons-row">
                         {% if is_sold %}<div class="sold-notice">Properti ini sudah berstatus SOLD dan tidak menerima DP baru. <a href="{% url 'catalog' %}">Lihat unit lainnya →</a></div>{% else %}
-                            <a href="#booking-section" class="btn-survey">📅 JADWALKAN SURVEY</a>
-                            <a href="{% url 'payment_create' prop.pk %}" class="btn-dp">💳 DOWN PAYMENT (DP)</a>
+                            <a href="#booking-section" class="btn-survey"><svg class="ap-icon" aria-hidden="true"><use href="#ap-calendar"/></svg> JADWALKAN SURVEY</a>
+                            <a href="{% url 'payment_create' prop.pk %}" class="btn-dp"><svg class="ap-icon" aria-hidden="true"><use href="#ap-wallet"/></svg> DOWN PAYMENT (DP)</a>
                         {% endif %}
                     </div>
                 </div>
@@ -505,32 +507,32 @@
         <!-- 6 KOTAK SPESIFIKASI UTAMA -->
         <div class="specs-bar-6">
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">◇</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-building"/></svg></div><div class="spec-card-copy">
                     <span>Jumlah Lantai</span><strong>{{ prop.jumlah_lantai }} Lantai</strong>
                 </div>
             </div>
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">▤</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-bed"/></svg></div><div class="spec-card-copy">
                     <span>Kamar Tidur</span><strong>{{ prop.kamar_tidur }}</strong>
                 </div>
             </div>
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">♧</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-shower"/></svg></div><div class="spec-card-copy">
                     <span>Kamar Mandi</span><strong>{{ prop.kamar_mandi }} KM</strong>
                 </div>
             </div>
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">◢</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-ruler"/></svg></div><div class="spec-card-copy">
                     <span>Luas Bangunan</span><strong>{{ prop.luas_bangunan }} m²</strong>
                 </div>
             </div>
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">▣</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-ruler"/></svg></div><div class="spec-card-copy">
                     <span>Luas Tanah</span><strong>{{ prop.luas_tanah }} m²</strong>
                 </div>
             </div>
             <div class="spec-card-item">
-                <div class="spec-icon" aria-hidden="true">⌖</div><div class="spec-card-copy">
+                <div class="spec-icon" aria-hidden="true"><svg class="ap-icon"><use href="#ap-compass"/></svg></div><div class="spec-card-copy">
                     <span>Arah Hadap</span><strong>{{ prop.arah_hadap }}</strong>
                 </div>
             </div>
@@ -547,7 +549,7 @@
                     <div class="furnish-grid">
                         {% for item in list_furnitur %}
                             <div class="furnish-item">
-                                <span class="furnish-icon">✦</span>
+                                <span class="furnish-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-sparkle"/></svg></span>
                                 <h4>{{ item }}</h4>
                                 <span>Termasuk dalam unit</span>
                             </div>
@@ -558,7 +560,7 @@
                     {% if list_fasilitas %}
                         <div class="facility-list">
                             {% for fasilitas in list_fasilitas %}
-                                <div class="facility-item"><span>✓</span><div>{{ fasilitas }}</div></div>
+                                <div class="facility-item"><span><svg class="ap-icon" aria-hidden="true"><use href="#ap-check"/></svg></span><div>{{ fasilitas }}</div></div>
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -641,8 +643,8 @@
                     </div>
                     <p class="concierge-desc">Butuh negosiasi harga, pendampingan legalitas sertifikat, atau ingin survey ke unit langsung? Saya siap memandu Anda secara privat.</p>
                     <div class="concierge-actions">
-                        <a href="tel:+628118900234" class="btn-c-telp">📞 TELEPON</a>
-                        <a href="https://wa.me/628118900234?text=Halo%20Pak%20Deng%20Kolit,%20saya%20ingin%20berkonsultasi%20privat%20terkait%20unit%20{{ prop.nama_properti }}" target="_blank" class="btn-c-wa">💬 WHATSAPP</a>
+                        <a href="tel:+628118900234" class="btn-c-telp"><svg class="ap-icon" aria-hidden="true"><use href="#ap-phone"/></svg> TELEPON</a>
+                        <a href="https://wa.me/628118900234?text=Halo%20Pak%20Deng%20Kolit,%20saya%20ingin%20berkonsultasi%20privat%20terkait%20unit%20{{ prop.nama_properti }}" target="_blank" class="btn-c-wa"><svg class="ap-icon" aria-hidden="true"><use href="#ap-message"/></svg> WHATSAPP</a>
                     </div>
                 </div>
 
@@ -696,7 +698,7 @@
                                 <span class="related-price">Rp {{ rekomendasi.harga_format_titik }}</span>
                                 <h3>{{ rekomendasi.nama_properti }}</h3>
                                 <p class="related-location">{{ rekomendasi.lokasi_detail }}, {{ rekomendasi.kota }} · LT {{ rekomendasi.luas_tanah }} m² / LB {{ rekomendasi.luas_bangunan }} m²</p>
-                                <div class="related-specs"><span>⌂ {{ rekomendasi.kamar_tidur }}</span><span>♧ {{ rekomendasi.kamar_mandi }} KM</span><span>▣ {{ rekomendasi.jumlah_lantai }} lantai</span></div>
+                                <div class="related-specs"><span><svg class="ap-icon" aria-hidden="true"><use href="#ap-bed"/></svg> {{ rekomendasi.kamar_tidur }}</span><span><svg class="ap-icon" aria-hidden="true"><use href="#ap-shower"/></svg> {{ rekomendasi.kamar_mandi }} KM</span><span><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg> {{ rekomendasi.jumlah_lantai }} lantai</span></div>
                             </div>
                         </a>
                     {% endfor %}

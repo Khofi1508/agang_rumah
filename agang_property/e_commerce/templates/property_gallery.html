@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'partials/site_icon_styles.html' %}
     <style>
         :root{--bg:#111215;--card:#191a1e;--gold:#facc15;--muted:#a1a1aa;--line:#2a2b30}
         *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f8fafc;font:15px 'Plus Jakarta Sans',sans-serif;line-height:1.6}
@@ -26,6 +27,7 @@
     </style>
 </head>
 <body>
+    {% include 'partials/site_icon_sprite.html' %}
     <header class="nav"><div class="wrap navin"><a href="{% url 'home' %}">{% include 'partials/site_logo_image.html' with logo_class='logo' %}</a><a class="back" href="{% url 'property_detail' prop.pk %}">← Kembali ke detail unit</a></div></header>
     <main class="wrap">
         <section class="hero"><span class="eyebrow">Galeri Properti · {{ prop.kode_properti }}</span><h1>{{ prop.nama_properti }}</h1><p>{{ prop.lokasi_detail }}, {{ prop.kota }} · {{ prop.deskripsi_singkat }}</p></section>
@@ -35,7 +37,7 @@
         </section>
         <dialog class="lightbox" id="gallery-lightbox" aria-label="Pratinjau foto galeri">
             <div class="lightbox-tools"><button class="lightbox-control" type="button" data-zoom="out" aria-label="Perkecil">−</button><button class="lightbox-control" type="button" data-zoom="reset">Reset</button><button class="lightbox-control" type="button" data-zoom="in" aria-label="Perbesar">+</button></div>
-            <span class="lightbox-counter" id="lightbox-counter"></span><button class="lightbox-close" type="button" data-close>✕ Tutup</button>
+            <span class="lightbox-counter" id="lightbox-counter"></span><button class="lightbox-close" type="button" data-close><svg class="ap-icon" aria-hidden="true"><use href="#ap-close"/></svg> Tutup</button>
             <button class="lightbox-arrow prev" type="button" data-step="-1" aria-label="Foto sebelumnya">‹</button>
             <div class="lightbox-stage"><img class="lightbox-image" id="lightbox-image" alt=""></div>
             <button class="lightbox-arrow next" type="button" data-step="1" aria-label="Foto berikutnya">›</button><p class="lightbox-caption" id="lightbox-caption"></p>

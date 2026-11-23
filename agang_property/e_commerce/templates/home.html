@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'partials/site_icon_styles.html' %}
     
     <style>
         :root {
@@ -901,6 +902,7 @@
     </style>
 </head>
 <body>
+    {% include 'partials/site_icon_sprite.html' %}
 
     <!-- ================= NAVBAR ================= -->
     <header class="navbar">
@@ -966,7 +968,7 @@
                 <div class="filter-item">
                     <span class="filter-label">LOKASI KOTA</span>
                     <div class="filter-control">
-                        <span>📍</span>
+                        <svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg>
                         <select name="kota">
                             <option value="">Makassar (Pusat)</option>
                             <option value="Makassar">Makassar</option>
@@ -979,7 +981,7 @@
                 <div class="filter-item">
                     <span class="filter-label">TIPE PROPERTI</span>
                     <div class="filter-control">
-                        <span>🏢</span>
+                        <svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg>
                         <select name="kategori">
                             <option value="">Cluster Tengah Kota</option>
                             {% for cat in categories %}
@@ -992,7 +994,7 @@
                 <div class="filter-item">
                     <span class="filter-label">RENTANG HARGA</span>
                     <div class="filter-control">
-                        <span>💳</span>
+                        <svg class="ap-icon" aria-hidden="true"><use href="#ap-wallet"/></svg>
                         <select name="harga_max">
                             <option value="">&lt; Rp 500 Juta</option>
                             <option value="500000000">&lt; Rp 500 Juta</option>
@@ -1003,14 +1005,14 @@
                 </div>
 
                 <button type="submit" class="btn-search">
-                    🔍 CARI PROPERTI
+                    <svg class="ap-icon" aria-hidden="true"><use href="#ap-search"/></svg> CARI PROPERTI
                 </button>
             </form>
 
             <div class="hero-features">
-                <div><span class="icon">🛡️</span> 100% Legalitas SHM & IMB Aman</div>
+                <div><span class="icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-shield"/></svg></span> 100% Legalitas SHM & IMB Aman</div>
                 <div><span class="icon">%</span> Bunga Promo KPR Ringan</div>
-                <div><span class="icon">📅</span> Spring / Summer 2026 Ready Handover</div>
+                <div><span class="icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-calendar"/></svg></span> Spring / Summer 2026 Ready Handover</div>
             </div>
             {% if hero_slides|length > 1 %}
                 <div class="hero-carousel-controls" aria-label="Navigasi hero slide">
@@ -1072,10 +1074,10 @@
                         <p class="prop-desc">{{ prop.deskripsi_singkat }}</p>
 
                         <div class="prop-specs">
-                            <div class="spec-item"><span class="spec-icon">❖</span> {{ prop.jumlah_lantai }} Lt</div>
-                            <div class="spec-item"><span class="spec-icon">🛏️</span> {{ prop.kamar_tidur }}</div>
-                            <div class="spec-item"><span class="spec-icon">🚿</span> {{ prop.kamar_mandi }} KM</div>
-                            <div class="spec-item"><span class="spec-icon">📐</span> {{ prop.luas_bangunan }}m²</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg></span> {{ prop.jumlah_lantai }} Lt</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bed"/></svg></span> {{ prop.kamar_tidur }}</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-shower"/></svg></span> {{ prop.kamar_mandi }} KM</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-ruler"/></svg></span> {{ prop.luas_bangunan }}m²</div>
                         </div>
 
                         <a href="{% url 'property_detail' prop.id %}" class="btn-detail">DETAIL UNIT →</a>
@@ -1097,10 +1099,10 @@
                         <h3 class="prop-title">Rumah Tinggal Cluster...</h3>
                         <p class="prop-desc">Hunian eksklusif dengan privasi tinggi, lingkungan asri, dan akses hanya 5 menit...</p>
                         <div class="prop-specs">
-                            <div class="spec-item"><span class="spec-icon">❖</span> 1 Lt</div>
-                            <div class="spec-item"><span class="spec-icon">🛏️</span> 2 KT</div>
-                            <div class="spec-item"><span class="spec-icon">🚿</span> 1 KM</div>
-                            <div class="spec-item"><span class="spec-icon">📐</span> 60m²</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg></span> 1 Lt</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bed"/></svg></span> 2 KT</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-shower"/></svg></span> 1 KM</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-ruler"/></svg></span> 60m²</div>
                         </div>
                         <a href="{% url 'catalog' %}" class="btn-detail">DETAIL UNIT →</a>
                     </div>
@@ -1120,10 +1122,10 @@
                         <h3 class="prop-title">Luxury Home With Green...</h3>
                         <p class="prop-desc">Konsep eco-luxury 2 lantai beratap tinggi dengan panel surya mandiri dan clubhouse...</p>
                         <div class="prop-specs">
-                            <div class="spec-item"><span class="spec-icon">❖</span> 2 Lt</div>
-                            <div class="spec-item"><span class="spec-icon">🛏️</span> 3 KT</div>
-                            <div class="spec-item"><span class="spec-icon">🚿</span> 2 KM</div>
-                            <div class="spec-item"><span class="spec-icon">📐</span> 110m²</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg></span> 2 Lt</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bed"/></svg></span> 3 KT</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-shower"/></svg></span> 2 KM</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-ruler"/></svg></span> 110m²</div>
                         </div>
                         <a href="{% url 'catalog' %}" class="btn-detail">DETAIL UNIT →</a>
                     </div>
@@ -1143,10 +1145,10 @@
                         <h3 class="prop-title">Home Surrounded by Nature</h3>
                         <p class="prop-desc">Suaka hunian mewah dikelilingi lansekap hijau nan damai dengan material marmer alam dan...</p>
                         <div class="prop-specs">
-                            <div class="spec-item"><span class="spec-icon">❖</span> 2 Lt</div>
-                            <div class="spec-item"><span class="spec-icon">🛏️</span> 4 KT</div>
-                            <div class="spec-item"><span class="spec-icon">🚿</span> 3 KM</div>
-                            <div class="spec-item"><span class="spec-icon">📐</span> 145m²</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg></span> 2 Lt</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bed"/></svg></span> 4 KT</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-shower"/></svg></span> 3 KM</div>
+                            <div class="spec-item"><span class="spec-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-ruler"/></svg></span> 145m²</div>
                         </div>
                         <a href="{% url 'catalog' %}" class="btn-detail">DETAIL UNIT →</a>
                     </div>
@@ -1284,7 +1286,7 @@
                         <div class="upcoming-side-card">
                             <div>
                                 <div class="side-card-top">
-                                    <span class="side-icon">{{ proj.ikon_kartu|default:"⌂" }}</span>
+                                    <span class="side-icon"><svg class="ap-icon" aria-hidden="true"><use href="{% if proj.ikon_kartu == '≈' %}#ap-waves{% else %}#ap-home{% endif %}"/></svg></span>
                                     <span class="side-badge">{{ proj.badge_info }}</span>
                                 </div>
                                 <h4>{{ proj.nama_proyek }}</h4>
@@ -1301,7 +1303,7 @@
                         <div class="upcoming-side-card">
                             <div>
                                 <div class="side-card-top">
-                                    <span class="side-icon">⌂</span>
+                                    <span class="side-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-home"/></svg></span>
                                     <span class="side-badge">12 Unit Sisa</span>
                                 </div>
                                 <h4>The Pavilion Heights</h4>
@@ -1316,7 +1318,7 @@
                         <div class="upcoming-side-card">
                             <div>
                                 <div class="side-card-top">
-                                    <span class="side-icon">≈</span>
+                                    <span class="side-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-waves"/></svg></span>
                                     <span class="side-badge">VIP Launch</span>
                                 </div>
                                 <h4>The Lakeview Sanctuary</h4>
@@ -1346,9 +1348,9 @@
                         Menghadirkan mahakarya arsitektur hunian eksklusif dan investasi properti prestisius dengan privasi optimal serta standar kenyamanan tertinggi.
                     </p>
                     <div class="social-icons">
-                        <a href="#">🌐</a>
-                        <a href="#">📷</a>
-                        <a href="#">▶</a>
+                        <a href="#" aria-label="Website"><svg class="ap-icon" aria-hidden="true"><use href="#ap-globe"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg class="ap-icon" aria-hidden="true"><use href="#ap-instagram"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg class="ap-icon" aria-hidden="true"><use href="#ap-play"/></svg></a>
                     </div>
                 </div>
 
@@ -1368,9 +1370,9 @@
                     <h5 class="footer-heading">PRIVATE CONCIERGE</h5>
                     <p>Hubungi konsultan properti privat kami untuk reservasi dan penawaran eksklusif.</p>
                     <ul class="footer-contact-list">
-                        <li>📞 +62 811 8900 234</li>
-                        <li>✉️ concierge@agangproperty.com</li>
-                        <li>📍 Panakkukang, Makassar, Sulawesi Selatan</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-phone"/></svg> +62 811 8900 234</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-mail"/></svg> concierge@agangproperty.com</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Panakkukang, Makassar, Sulawesi Selatan</li>
                     </ul>
                 </div>
             </div>

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'partials/site_icon_styles.html' %}
 
     <style>
         :root {
@@ -870,6 +871,7 @@
     </style>
 </head>
 <body>
+    {% include 'partials/site_icon_sprite.html' %}
 
     <!-- ================= NAVBAR ================= -->
     <header class="navbar">
@@ -906,7 +908,7 @@
     <section class="catalog-hero">
         <div class="container">
             <div class="badge-collection">
-                ★ KOLEKSI EKSKLUSIF MAKASSAR & SEKITARNYA
+                <svg class="ap-icon" aria-hidden="true"><use href="#ap-sparkle"/></svg> KOLEKSI EKSKLUSIF MAKASSAR & SEKITARNYA
             </div>
 
             <form method="GET" action="{% url 'catalog' %}">
@@ -930,14 +932,14 @@
                 <!-- Box Filter Utama -->
                 <div class="filter-panel">
                     <div class="search-input-row">
-                        <span class="search-icon">🔍</span>
+                        <span class="search-icon"><svg class="ap-icon" aria-hidden="true"><use href="#ap-search"/></svg></span>
                         <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Cari berdasarkan nama cluster, lokasi (Panakkukang, Antang, Somba Opu), atau tipe unit...">
                         <button type="submit" class="btn-cari">CARI</button>
                     </div>
 
                     <div class="dropdown-grid">
                         <div class="dropdown-col">
-                            <label><span>🏢</span> TIPE PROPERTI</label>
+                            <label><svg class="ap-icon" aria-hidden="true"><use href="#ap-building"/></svg> TIPE PROPERTI</label>
                             <select name="kategori" onchange="this.form.submit()">
                                 <option value="">Semua Tipe Hunian</option>
                                 {% for cat in categories %}
@@ -947,7 +949,7 @@
                         </div>
 
                         <div class="dropdown-col">
-                            <label><span>📍</span> WILAYAH STRATEGIS</label>
+                            <label><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> WILAYAH STRATEGIS</label>
                             <select name="wilayah" onchange="this.form.submit()">
                                 <option value="">Semua Lokasi Makassar & Sekitar</option>
                                 <option value="Panakkukang" {% if request.GET.wilayah == 'Panakkukang' %}selected{% endif %}>Panakkukang, Makassar</option>
@@ -959,7 +961,7 @@
                         </div>
 
                         <div class="dropdown-col">
-                            <label><span>💳</span> RENTANG ANGGARAN</label>
+                            <label><svg class="ap-icon" aria-hidden="true"><use href="#ap-wallet"/></svg> RENTANG ANGGARAN</label>
                             <select name="anggaran" onchange="this.form.submit()">
                                 <option value="">Semua Rentang Harga</option>
                                 <option value="under_600" {% if request.GET.anggaran == 'under_600' %}selected{% endif %}>Di Bawah Rp 600 Juta</option>
@@ -969,7 +971,7 @@
                         </div>
 
                         <div class="dropdown-col">
-                            <label><span>🛡️</span> LEGALITAS & PROGRES</label>
+                            <label><svg class="ap-icon" aria-hidden="true"><use href="#ap-shield"/></svg> LEGALITAS & PROGRES</label>
                             <select name="legalitas" onchange="this.form.submit()">
                                 <option value="">Semua Status Unit</option>
                                 <option value="Siap Huni" {% if request.GET.legalitas == 'Siap Huni' %}selected{% endif %}>Siap Huni (Ready Stock)</option>
@@ -1014,7 +1016,7 @@
                             {% if prop.status_penjualan == 'sold' %}<span class="b-red">SOLD · TERJUAL</span>{% elif prop.badge_status %}<span class="b-red">{{ prop.badge_status }}</span>{% endif %}
                             {% if prop.badge_kedua %}<span class="b-dark">{{ prop.badge_kedua }}</span>{% endif %}
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1025,7 +1027,7 @@
                     </div>
 
                     <div class="cat-body">
-                        <div class="cat-location">📍 {{ prop.lokasi_detail }}</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> {{ prop.lokasi_detail }}</div>
                         <h3 class="cat-title">{{ prop.nama_properti }}</h3>
                         <p class="cat-desc">{{ prop.deskripsi_singkat }}</p>
 
@@ -1038,7 +1040,7 @@
 
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi & Konsultasi">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi & Konsultasi" aria-label="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1052,7 +1054,7 @@
                             <span class="b-red">SIAP HUNI</span>
                             <span class="b-dark">SHM READY</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1062,7 +1064,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Green River, Tanjung Bunga, Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Green River, Tanjung Bunga, Makassar</div>
                         <h3 class="cat-title">Rumah Tinggal Cluster...</h3>
                         <p class="cat-desc">Hunian minimalis kompak 1 lantai di jantung distrik komersial Makassar. Kanopi modern,...</p>
                         <div class="cat-specs">
@@ -1073,7 +1075,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1086,7 +1088,7 @@
                             <span class="b-red">ECO-LIVING</span>
                             <span class="b-dark">SOLAR READY</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1096,7 +1098,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Antang Raya, Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Antang Raya, Makassar</div>
                         <h3 class="cat-title">Virginia Park Luxury...</h3>
                         <p class="cat-desc">Hunian dua lantai berkonsep green sanctuary dengan cross-ventilation system, private...</p>
                         <div class="cat-specs">
@@ -1107,7 +1109,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1120,7 +1122,7 @@
                             <span class="b-red">PRESTIGE SIGNATURE</span>
                             <span class="b-dark">SMART VILLA</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1130,7 +1132,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Somba Opu, Gowa - Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Somba Opu, Gowa - Makassar</div>
                         <h3 class="cat-title">The Mutiara Springs...</h3>
                         <p class="cat-desc">Hunian berarsitektur tropis modern dengan privasi optimal, terhubung dengan clubhouse dan inner...</p>
                         <div class="cat-specs">
@@ -1141,7 +1143,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1154,7 +1156,7 @@
                             <span class="b-red">BEST SELLER</span>
                             <span class="b-dark">BOULEVARD DEPAN</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1164,7 +1166,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Hertasning Baru, Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Hertasning Baru, Makassar</div>
                         <h3 class="cat-title">CitraLand Grand Boulevard</h3>
                         <p class="cat-desc">Hunian megah di arteri utama Hertasning Baru, memiliki ceiling tinggi 4 meter, 2 carport mobil,...</p>
                         <div class="cat-specs">
@@ -1175,7 +1177,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1188,7 +1190,7 @@
                             <span class="b-red">WATERFRONT LUXURY</span>
                             <span class="b-dark">PRIVATE POOL</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1198,7 +1200,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Tanjung Bunga Waterfront, Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Tanjung Bunga Waterfront, Makassar</div>
                         <h3 class="cat-title">The Lakeview Pavilion Villa</h3>
                         <p class="cat-desc">Koleksi hunian tepi danau paling prestisius dengan lanskap terbuka, balkon master suite menghadap...</p>
                         <div class="cat-specs">
@@ -1209,7 +1211,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1222,7 +1224,7 @@
                             <span class="b-red">INDENT TAHAP 1</span>
                             <span class="b-dark">DP 0% PROMO</span>
                         </div>
-                        <div class="btn-bookmark">🔖</div>
+                        <div class="btn-bookmark"><svg class="ap-icon" aria-hidden="true"><use href="#ap-bookmark"/></svg></div>
                         <div class="img-bottom-info">
                             <div>
                                 <span class="price-label-sm">MULAI DARI</span>
@@ -1232,7 +1234,7 @@
                         </div>
                     </div>
                     <div class="cat-body">
-                        <div class="cat-location">📍 Panakkukang Mas, Makassar</div>
+                        <div class="cat-location"><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Panakkukang Mas, Makassar</div>
                         <h3 class="cat-title">Artisan Facade Townhouse</h3>
                         <p class="cat-desc">Desain fasad Japandi kontemporer dengan efisiensi tata ruang maksimal, mezzanine...</p>
                         <div class="cat-specs">
@@ -1243,7 +1245,7 @@
                         </div>
                         <div class="cat-actions">
                             <a href="{% url 'property_detail' prop.id %}" class="btn-detail-red">DETAIL UNIT →</a>
-                            <a href="#kpr-section" class="btn-icon-gold">🗎</a>
+                            <a href="#kpr-section" class="btn-icon-gold" title="Simulasi dan konsultasi"><svg class="ap-icon" aria-hidden="true"><use href="#ap-document"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -1287,10 +1289,10 @@
                 </p>
 
                 <div class="prebooking-perks">
-                    <div class="perk-item"><span class="perk-check">✓</span> Prioritas Memilih Kavling Sudut Hook</div>
-                    <div class="perk-item"><span class="perk-check">✓</span> Harga Perdana (Potensi Capital Gain 22%)</div>
-                    <div class="perk-item"><span class="perk-check">✓</span> Free Biaya AJB, BPHTB & Balik Nama</div>
-                    <div class="perk-item"><span class="perk-check">✓</span> Garansi Struktur Bangunan 5 Tahun</div>
+                    <div class="perk-item"><span class="perk-check"><svg class="ap-icon" aria-hidden="true"><use href="#ap-check"/></svg></span> Prioritas Memilih Kavling Sudut Hook</div>
+                    <div class="perk-item"><span class="perk-check"><svg class="ap-icon" aria-hidden="true"><use href="#ap-check"/></svg></span> Harga Perdana (Potensi Capital Gain 22%)</div>
+                    <div class="perk-item"><span class="perk-check"><svg class="ap-icon" aria-hidden="true"><use href="#ap-check"/></svg></span> Free Biaya AJB, BPHTB & Balik Nama</div>
+                    <div class="perk-item"><span class="perk-check"><svg class="ap-icon" aria-hidden="true"><use href="#ap-check"/></svg></span> Garansi Struktur Bangunan 5 Tahun</div>
                 </div>
 
                 <div class="prebooking-actions">
@@ -1327,9 +1329,9 @@
                         Menghadirkan mahakarya arsitektur hunian eksklusif dan investasi properti prestisius dengan privasi optimal serta standar kenyamanan tertinggi.
                     </p>
                     <div class="social-icons">
-                        <a href="#">🌐</a>
-                        <a href="#">📷</a>
-                        <a href="#">▶</a>
+                        <a href="#" aria-label="Website"><svg class="ap-icon" aria-hidden="true"><use href="#ap-globe"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg class="ap-icon" aria-hidden="true"><use href="#ap-instagram"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg class="ap-icon" aria-hidden="true"><use href="#ap-play"/></svg></a>
                     </div>
                 </div>
 
@@ -1349,9 +1351,9 @@
                     <h5 class="footer-heading">PRIVATE CONCIERGE</h5>
                     <p>Hubungi konsultan properti privat kami untuk reservasi dan penawaran eksklusif.</p>
                     <ul class="footer-contact-list">
-                        <li>📞 +62 811 8900 234</li>
-                        <li>✉️ concierge@agangproperty.com</li>
-                        <li>📍 Panakkukang, Makassar, Sulawesi Selatan</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-phone"/></svg> +62 811 8900 234</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-mail"/></svg> concierge@agangproperty.com</li>
+                        <li><svg class="ap-icon" aria-hidden="true"><use href="#ap-location"/></svg> Panakkukang, Makassar, Sulawesi Selatan</li>
                     </ul>
                 </div>
             </div>
