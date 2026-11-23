@@ -1,0 +1,28 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-panel admin-form-panel" style="max-width:900px;margin:0 auto">
+        <div class="admin-section-head"><div><span class="admin-eyebrow">Administrator</span><h2>Profil Admin</h2><p>Perbarui informasi kontak dan foto profil yang tampil di dashboard.</p></div><a class="admin-button secondary" href="{% url 'admin_dashboard' %}">Kembali ke Dashboard</a></div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="admin-form-grid">
+                <div class="admin-field wide">
+                    <label for="profile-photo">Foto Profil</label>
+                    <div style="display:flex;align-items:center;gap:15px;margin:8px 0 12px">
+                        {% if profile.foto_profil %}<img src="{{ profile.foto_profil.url }}" alt="Foto profil saat ini" style="width:74px;height:74px;object-fit:cover;border-radius:50%;border:1px solid #7f2d2d">{% else %}<div class="profile-photo" style="width:74px;height:74px;font-size:22px">{{ request.user.username|first|upper }}</div>{% endif %}
+                        <input id="profile-photo" class="admin-input" type="file" name="foto_profil" accept="image/*">
+                    </div>
+                </div>
+                <div class="admin-field"><label for="admin-username">Username</label><input id="admin-username" class="admin-input" type="text" name="username" value="{{ request.user.username }}"></div>
+                <div class="admin-field"><label for="admin-name">Nama Tampilan</label><input id="admin-name" class="admin-input" type="text" name="nama_lengkap" value="{{ request.user.first_name }}"></div>
+                <div class="admin-field"><label for="admin-email">Email</label><input id="admin-email" class="admin-input" type="email" name="email" value="{{ request.user.email }}"></div>
+                <div class="admin-field"><label for="admin-phone">No. Kontak / WhatsApp</label><input id="admin-phone" class="admin-input" type="text" name="no_telepon" value="{{ profile.no_telepon|default:'' }}"></div>
+                <div class="admin-field wide"><label for="admin-address">Alamat</label><textarea id="admin-address" class="admin-input" name="alamat" rows="3">{{ profile.alamat|default:'' }}</textarea></div>
+                <div class="admin-field wide"><label for="admin-password">Password Baru (kosongkan bila tidak diganti)</label><input id="admin-password" class="admin-input" type="password" name="password_baru" autocomplete="new-password"></div>
+            </div>
+            <div class="admin-form-actions"><button type="submit" class="admin-button gold">Simpan Perubahan</button></div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<section class="admin-panel admin-profile">
+    <div class="profile-photo">{% if admin_profile and admin_profile.foto_profil %}<img src="{{ admin_profile.foto_profil.url }}" alt="Foto profil admin">{% else %}{{ request.user.username|first|upper }}{% endif %}</div>
+    <div class="profile-info">
+        <span class="admin-eyebrow">Staf Operasional Agang Property</span>
+        <h2>{{ request.user.get_full_name|default:request.user.username }}</h2>
+        <div class="profile-details">
+            <div class="profile-detail"><span>Email Admin</span><strong>{{ request.user.email|default:'Belum diatur' }}</strong></div>
+            <div class="profile-detail"><span>Divisi Operasional</span><strong>OPERASIONAL & PROPERTI</strong></div>
+            <div class="profile-detail"><span>No. Kontak / WhatsApp</span><strong>{{ admin_profile.no_telepon|default:'-' }}</strong></div>
+            <div class="profile-detail"><span>Hak Akses</span><strong>Super Administrator</strong></div>
+        </div>
+        <div class="profile-actions"><a class="admin-button secondary" href="{% url 'admin_edit_profile' %}">Edit Profil Admin</a></div>
+    </div>
+</section>
+
+<section class="admin-section">
+    <div class="admin-panel">
+        <div class="admin-section-head"><div><span class="admin-eyebrow">Ringkasan</span><h2>Metrik Operasional</h2><p>Ikhtisar aktivitas Agang Property.</p></div></div>
+        <div class="admin-metrics">
+            <div class="admin-metric"><span>Total Pelanggan</span><strong>{{ total_customer }}</strong></div>
+            <div class="admin-metric"><span>Katalog Properti</span><strong>{{ total_properti }}</strong></div>
+            <div class="admin-metric"><span>Artikel Terbit</span><strong>{{ total_artikel_terbit }}</strong></div>
+            <div class="admin-metric"><span>Testimoni Masuk</span><strong>{{ total_testimoni }}</strong></div>
+        </div>
+    </div>
+</section>
+
+<section class="admin-section">
+    <div class="admin-grid">
+        <div class="admin-panel">
+            <div class="admin-section-head"><div><h2>Properti Terbaru</h2><p>{{ total_properti }} unit tercatat di katalog.</p></div><a class="admin-button" href="{% url 'admin_properties' %}">Kelola Properti</a></div>
+            <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Properti</th><th>Lokasi</th><th>Harga</th></tr></thead><tbody>
+                {% for prop in properties %}<tr><td><span class="table-primary">{{ prop.nama_properti }}</span><span class="table-secondary">{{ prop.kamar_tidur }} · {{ prop.kamar_mandi }} KM</span></td><td>{{ prop.kota }}</td><td>Rp {{ prop.harga_format_titik }}</td></tr>{% empty %}<tr><td colspan="3" class="admin-empty">Belum ada data properti.</td></tr>{% endfor %}
+            </tbody></table></div>
+        </div>
+        <div class="admin-panel">
+            <div class="admin-section-head"><div><h2>Artikel Terbaru</h2><p>{{ total_artikel }} artikel, {{ total_artikel_terbit }} sudah terbit.</p></div><a class="admin-button" href="{% url 'admin_articles' %}">Kelola Artikel</a></div>
+            <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Judul</th><th>Status</th><th>Diperbarui</th></tr></thead><tbody>
+                {% for article in articles %}<tr><td><span class="table-primary">{{ article.judul }}</span><span class="table-secondary">{{ article.kategori.nama_kategori|default:'Tanpa kategori' }}</span></td><td><span class="status-pill {% if article.status == 'published' %}live{% endif %}">{{ article.get_status_display }}</span></td><td>{{ article.diperbarui|date:'j M Y' }}</td></tr>{% empty %}<tr><td colspan="3" class="admin-empty">Belum ada artikel.</td></tr>{% endfor %}
+            </tbody></table></div>
+        </div>
+    </div>
+</section>
+
+<section class="admin-section">
+    <div class="admin-panel">
+        <div class="admin-section-head"><div><h2>Pelanggan Terdaftar</h2><p>Data pelanggan terbaru yang membuat akun.</p></div><a class="admin-button" href="{% url 'admin_users' %}">Kelola User</a></div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Nama / Username</th><th>Email</th><th>No. Telepon</th><th>Alamat</th></tr></thead><tbody>
+            {% for cust in customers %}<tr><td><span class="table-primary">{{ cust.user.first_name|default:cust.user.username }}</span></td><td>{{ cust.user.email|default:'-' }}</td><td>{{ cust.no_telepon|default:'-' }}</td><td>{{ cust.alamat|default:'-' }}</td></tr>{% empty %}<tr><td colspan="4" class="admin-empty">Belum ada pelanggan terdaftar.</td></tr>{% endfor %}
+        </tbody></table></div>
+    </div>
+</section>
+{% endblock %}
