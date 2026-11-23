@@ -209,4 +209,44 @@ MAILERS = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Optional persistent Supabase Storage for media files.
+# Keep the bucket private; Django returns short-lived signed URLs.
+SUPABASE_STORAGE_ENABLED = os.environ.get('SUPABASE_STORAGE_ENABLED', '').strip().lower() in {'1', 'true', 'yes', 'on'}
+if SUPABASE_STORAGE_ENABLED:
+    from django.core.exceptions import ImproperlyConfigured
+
+    _supabase_s3 = {
+        'access_key': os.environ.get('SUPABASE_S3_ACCESS_KEY_ID', '').strip(),
+        'secret_key': os.environ.get('SUPABASE_S3_SECRET_ACCESS_KEY', '').strip(),
+        'endpoint_url': os.environ.get('SUPABASE_S3_ENDPOINT_URL', '').strip(),
+        'region_name': os.environ.get('SUPABASE_S3_REGION', '').strip(),
+        'bucket_name': os.environ.get('SUPABASE_S3_BUCKET', 'agang-media').strip(),
+    }
+    _missing_supabase_s3 = [name for name, value in _supabase_s3.items() if not value]
+    if _missing_supabase_s3:
+        raise ImproperlyConfigured(
+            'Supabase Storage is enabled but required S3 settings are missing: '
+            + ', '.join(_missing_supabase_s3)
+        )
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+            'OPTIONS': {
+                **_supabase_s3,
+                'addressing_style': 'path',
+                'signature_version': 's3v4',
+                'querystring_auth': True,
+                'querystring_expire': 3600,
+                'file_overwrite': False,
+                'default_acl': None,
+                'object_parameters': {'CacheControl': 'private, max-age=300'},
+            },
+        },
+        'staticfiles': {
+            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        },
+    }
+
+
 SITE_BASE_URL = os.environ.get('SITE_BASE_URL', '').rstrip('/')
