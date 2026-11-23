@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0k0v$zdb9knkbtaesp*&1japhh7oybou(j_zrso($oj(g7lezj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+_debug_default = 'False' if os.environ.get('VERCEL') else 'True'
+DEBUG = os.environ.get('DEBUG', _debug_default).strip().lower() in {'1', 'true', 'yes', 'on'}
 
 _public_site_url = os.environ.get('SITE_BASE_URL', '').strip()
 _doku_notification_url = os.environ.get('DOKU_NOTIFICATION_URL', '').strip()
@@ -39,16 +40,37 @@ MIDTRANS_NOTIFICATION_URL = _midtrans_notification_url.rstrip('/') + '/' if _mid
 _public_site_parts = urlparse(_public_site_url)
 _notification_parts = urlparse(DOKU_NOTIFICATION_URL)
 _midtrans_notification_parts = urlparse(MIDTRANS_NOTIFICATION_URL)
+_vercel_url_values = [
+    os.environ.get(name, '').strip()
+    for name in ('VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_PROJECT_PRODUCTION_URL')
+]
+_vercel_parts = [
+    urlparse(value if '://' in value else f'https://{value}')
+    for value in _vercel_url_values
+    if value
+]
 _public_hosts = [
     part.hostname
     for part in (_public_site_parts, _notification_parts, _midtrans_notification_parts)
     if part.hostname
 ]
-ALLOWED_HOSTS = list(dict.fromkeys(['localhost', '127.0.0.1', *_public_hosts]))
+_vercel_hosts = [part.hostname for part in _vercel_parts if part.hostname]
+ALLOWED_HOSTS = list(dict.fromkeys([
+    'localhost',
+    '127.0.0.1',
+    *_public_hosts,
+    *_vercel_hosts,
+]))
 CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(
-    f'{part.scheme}://{part.netloc}'
-    for part in (_public_site_parts, _notification_parts, _midtrans_notification_parts)
-    if part.scheme in {'http', 'https'} and part.netloc
+    [
+        f'{part.scheme}://{part.netloc}'
+        for part in (_public_site_parts, _notification_parts, _midtrans_notification_parts)
+        if part.scheme in {'http', 'https'} and part.netloc
+    ] + [
+        f'https://{part.netloc}'
+        for part in _vercel_parts
+        if part.netloc
+    ]
 ))
 
 # Application definition
