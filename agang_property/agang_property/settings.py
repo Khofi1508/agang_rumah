@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -97,16 +97,41 @@ WSGI_APPLICATION = 'agang_property.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'agang_property',
-        'USER': 'root',
-        'PASSWORD': 'root', # Harus sama persis dengan MYSQL_ROOT_PASSWORD di atas
-        'HOST': 'db',       # Wajib diubah menjadi 'db' sesuai nama service di docker-compose
-        'PORT': '3306',
+_database_url = os.environ.get('DATABASE_URL', '').strip()
+
+if _database_url:
+    _database_parts = urlparse(_database_url)
+    if _database_parts.scheme not in {'postgres', 'postgresql'}:
+        raise ValueError('DATABASE_URL must use the postgres:// or postgresql:// scheme.')
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': unquote(_database_parts.path.lstrip('/')),
+            'USER': unquote(_database_parts.username or ''),
+            'PASSWORD': unquote(_database_parts.password or ''),
+            'HOST': _database_parts.hostname or '',
+            'PORT': str(_database_parts.port or 5432),
+            'CONN_MAX_AGE': 0,
+            'OPTIONS': {
+                'sslmode': parse_qs(_database_parts.query).get('sslmode', ['require'])[0],
+                # Supabase's shared transaction pooler does not support prepared statements.
+                'prepare_threshold': None,
+            },
+        }
     }
-}
+else:
+    # Docker Compose development fallback; configure DATABASE_URL on Vercel.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ.get('DB_NAME', 'agang_property'),
+            'USER': os.environ.get('DB_USER', 'root'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),
+            'HOST': os.environ.get('DB_HOST', 'db'),
+            'PORT': os.environ.get('DB_PORT', '3306'),
+        }
+    }
 
 
 # Password validation
